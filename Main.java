@@ -14,5 +14,7 @@ public class Main {
         //library.removeBook(ebook);
         library.findBookByTitle("1The Lord of the Rings");
         System.out.println(Library.getBooks());
+
+        Reader player = new Reader("Igor", 18, ebook);
     }
 }
