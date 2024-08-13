@@ -12,9 +12,11 @@ public class Main {
         library.addBook(printeBook);
 
         //library.removeBook(ebook);
-        library.findBookByTitle("1The Lord of the Rings");
+        library.findBookByTitle("The Lord of the Rings");
         System.out.println(Library.getBooks());
+        System.out.println(library.findBookByTitle("The Lord of the Rings"));
 
-        Reader player = new Reader("Igor", 18, ebook);
+        Reader player = new Reader("Igor", "18", Reader.getBorrowedBooks());
+        Reader newbook = new B
     }
 }

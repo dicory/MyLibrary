@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reader extends Library {
-    String name;
-    int readerId;
-    List<Book> borrowedBooks;
+    private String name;
+    private String readerId;
+    private static List<Book> borrowedBooks = new ArrayList<>();
 
-    public Reader(String name, int readerId, List<Book> borrowedBooks) {
+    public Reader(String name, String readerId, List<Book> borrowedBooks) {
         this.name = name;
         this.readerId = readerId;
         this.borrowedBooks = borrowedBooks;
@@ -17,42 +17,26 @@ public class Reader extends Library {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getReaderId() {
+    public String getReaderId() {
         return readerId;
     }
-
-    public void setReaderId(int readerId) {
+    public void setReaderId(String readerId) {
         this.readerId = readerId;
     }
-
-    public List<Book> getBorrowedBooks() {
+    public static List<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
-
     public void setBorrowedBooks(List<Book> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
 
     void borrowBook(Book book){
-        for (Book booke : getBooks()) {
-            if (book.getTitle().equals(book)) {
-                borrowedBooks.add(booke);
-                borrowBook(booke);
-            }
-        }
+        getBooks().stream().filter(newBook -> newBook.equals(book)).forEach(newBook -> {borrowedBooks.add(newBook);borrowBook(newBook);});
     }
-
     void returnBook(Book book){
-        for (Book booke : getBooks()) {
-            if (book.getTitle().equals(book)) {
-                borrowedBooks.remove(booke);
-                returnBook(booke);
-            }
-        }
+        getBooks().stream().filter(killBook -> killBook.equals(book)).forEach(killBook -> {borrowedBooks.remove(killBook);returnBook(killBook);});
     }
 }
