@@ -1,5 +1,7 @@
 package Books;
 
+import javax.naming.OperationNotSupportedException;
+
 public class Ebook extends Book {
     double fileSize;
 
@@ -14,10 +16,10 @@ public class Ebook extends Book {
 
     @Override
     void borrowBook() {
-        super.borrowBook();
+        System.out.println("Ebooks cannot be borrowed");
     }
 
     void returnBook() {
-        super.returnBook();
+        System.out.println("Ebooks cannot be returned");
     }
 }

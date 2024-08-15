@@ -1,6 +1,6 @@
 package Books;
 
-public class PrintedBook extends Book{
+public class PrintedBook extends Book {
     int numberOfPages;
 
     public PrintedBook(String title, String author, int isbn, int numberOfPages) {
@@ -8,14 +8,18 @@ public class PrintedBook extends Book{
         this.numberOfPages = numberOfPages;
     }
 
-    public PrintedBook(){
+    public PrintedBook() {
 
     }
 
-    void borrowBook(){
-        super.borrowBook();
+    @Override
+    void borrowBook() {
+        setAvailable(false);
     }
-    void returnBook(){
-        super.returnBook();
+
+    @Override
+    void returnBook() {
+        setAvailable(true);
     }
+
 }

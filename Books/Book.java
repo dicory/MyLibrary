@@ -1,6 +1,6 @@
 package Books;
 
-public class Book {
+public abstract class Book {
     private String title;
     private String author;
     private int isbn;
@@ -44,12 +44,7 @@ public class Book {
         this.available = available;
     }
 
+    abstract void borrowBook();
 
-    void borrowBook() {
-        setAvailable(false);
-    }
-
-    void returnBook() {
-        setAvailable(true);
-    }
+    abstract void returnBook();
 }
