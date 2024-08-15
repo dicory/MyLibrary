@@ -42,14 +42,22 @@ public class Library {
         return list;
     }
 
-    Book borrrowBook(String nameBook, String bookType) {
-        if (bookType.equals("Ebook")) {
-            Optional<Book> first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search.getAvailable() && search instanceof PrintedBook).findFirst();
+
+    Book borrowBook(String nameBook, String typeBook) {
+        Optional<Book> first;
+        if (typeBook.equals("ebook")) {
+            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof Ebook).findFirst();
+        } else if (typeBook.equals("printbook")) {
+            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof PrintedBook).findFirst();
+        } else {
+            throw new BookNotFoundException("No Book in Library " + nameBook);
         }
-        Optional<Book> first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof Ebook).findFirst();
-        if(first.isPresent()){
+        if (first.isPresent()) {
             return first.get();
+        } else {
+            throw new BookNotFoundException("No Book in Library " + nameBook);
         }
-        throw new BookNotFoundException("No Book Name" + nameBook);
+
     }
+
 }

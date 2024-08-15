@@ -25,7 +25,7 @@ public class Main {
 
 
         Reader player = new Reader("Igor", "18", new ArrayList<Book>());
-        Book theLordOfTheRings = library.borrrowBook("The Lord of the Rings");
+        Book theLordOfTheRings = library.borrowBook("2The Lord of the Rings", "ebook");
         System.out.println(theLordOfTheRings.getAvailable());
     }
 
