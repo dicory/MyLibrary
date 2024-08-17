@@ -1,13 +1,9 @@
 import Books.Book;
 import Books.Ebook;
 import Books.PrintedBook;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
+import Books.TypeBook;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,14 +14,13 @@ public class Main {
         library.addBook(ebook);
         library.addBook(printeBook);
 
-        //library.removeBook(ebook);
         library.findBookByTitle("The Lord of the Rings");
         System.out.println(Library.getBooks());
         System.out.println(library.findBookByTitle("The Lord of the Rings"));
 
 
         Reader player = new Reader("Igor", "18", new ArrayList<Book>());
-        Book theLordOfTheRings = library.borrowBook("2The Lord of the Rings", "ebook");
+        Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
         System.out.println(theLordOfTheRings.getAvailable());
     }
 

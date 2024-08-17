@@ -1,6 +1,7 @@
 import Books.Book;
 import Books.Ebook;
 import Books.PrintedBook;
+import Books.TypeBook;
 
 
 import java.util.ArrayList;
@@ -43,12 +44,12 @@ public class Library {
     }
 
 
-    Book borrowBook(String nameBook, String typeBook) {
+    Book borrowBook(String nameBook, TypeBook typeBook) {
         Optional<Book> first;
-        if (typeBook.equals("ebook")) {
-            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof Ebook).findFirst();
-        } else if (typeBook.equals("printbook")) {
-            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof PrintedBook).findFirst();
+        if (typeBook == TypeBook.EBOOK) {
+            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof Ebook && search.getType() == TypeBook.EBOOK).findFirst();
+        } else if (typeBook == TypeBook.PRINTEDBOOK) {
+            first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof PrintedBook && search.getType() == TypeBook.PRINTEDBOOK).findFirst();
         } else {
             throw new BookNotFoundException("No Book in Library " + nameBook);
         }

@@ -6,16 +6,23 @@ public abstract class Book {
     private int isbn;
     private boolean available;
 
-    public Book(String title, String author, int isbn) {
+    private TypeBook type;
+
+    public Book(String title, String author, int isbn, TypeBook type) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.available = true;
+        this.type = type;
     }
 
-    public Book(){
-
+    public Enum<TypeBook> getType() {
+        return type;
     }
+    public void setType(TypeBook type) {
+        this.type = type;
+    }
+
 
     public String getTitle() {
         return title;
@@ -47,4 +54,10 @@ public abstract class Book {
     abstract void borrowBook();
 
     abstract void returnBook();
+
+
+
+
+
+
 }
