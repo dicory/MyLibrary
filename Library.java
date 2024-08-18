@@ -45,7 +45,7 @@ public class Library {
 
 
     Book borrowBook(String nameBook, TypeBook typeBook) {
-        Optional<Book> first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search instanceof Ebook && search.getType() == typeBook).findFirst();
+        Optional<Book> first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search.getType() == typeBook).findFirst();
         if (first.isPresent()) {
             return first.get();
         } throw new BookNotFoundException("No Book in Library " + nameBook);

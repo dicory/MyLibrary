@@ -19,10 +19,6 @@ public abstract class Book {
     public Enum<TypeBook> getType() {
         return type;
     }
-    public void setType(TypeBook type) {
-        this.type = type;
-    }
-
 
     public String getTitle() {
         return title;
