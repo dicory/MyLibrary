@@ -3,10 +3,12 @@ import Books.Ebook;
 import Books.PrintedBook;
 import Books.TypeBook;
 
+import java.io.*;
+
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedIOException, FileNotFoundException {
         Book ebook = new Ebook("The Lord of the Rings", "J.R.R. Tolkien", 1, 1.2);
         Book printeBook = new PrintedBook("2The Lord of the Rings", "J.R.R. Tolkien", 1, 1200);
         Library library = new Library();
@@ -19,9 +21,13 @@ public class Main {
         System.out.println(library.findBookByTitle("The Lord of the Rings"));
 
 
-        Reader player = new Reader("Igor", "18", new ArrayList<Book>());
+        ReaderBook player = new ReaderBook("Igor", "18", new ArrayList<Book>());
         Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
         System.out.println(theLordOfTheRings.getAvailable());
+
+        Library.readFile();
+
+        Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
     }
 
 

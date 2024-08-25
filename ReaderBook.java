@@ -2,12 +2,12 @@ import Books.Book;
 
 import java.util.List;
 
-public class Reader {
+public class ReaderBook {
     private String name;
     private String readerId;
     private List<Book> borrowedBooks;
 
-    public Reader(String name, String readerId, List<Book> borrowedBooks) {
+    public ReaderBook(String name, String readerId, List<Book> borrowedBooks) {
         this.name = name;
         this.readerId = readerId;
         this.borrowedBooks = borrowedBooks;
