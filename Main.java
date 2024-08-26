@@ -26,7 +26,6 @@ public class Main {
         System.out.println(theLordOfTheRings.getAvailable());
 
         Library.readFile();
-
         Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
     }
 

@@ -19,10 +19,7 @@ public class Library {
     public static List<Book> getBooks() {
         return books;
     }
-    void addBook(Book book) {
-        //readFile();
-        books.add(book);
-    }
+
     boolean removeBook(Book book) {
         return books.remove(book);
     }
@@ -52,6 +49,14 @@ public class Library {
         } throw new BookNotFoundException("No Book in Library " + nameBook);
     }
 
+    static void delete(){
+        books.clear();
+    }
+    void addBook(Book book) {
+        readFile();
+
+        books.add(book);
+    }
     static void readFile() {
         books.clear();
         try (BufferedReader br = new BufferedReader(new FileReader
@@ -59,15 +64,14 @@ public class Library {
         {
             String s;
             while ((s=br.readLine())!=null){
-                String[] arr = s.split("\"");
-                Library library = new Library();
+                String[] arr = s.split("\"");//Поправить сплит
                 if (arr[9].equals("EBOOK")) {
                     Book ebook = new Ebook(arr[1], arr[3], Integer.parseInt(arr[5]), Double.parseDouble(arr[7]));
-                    library.addBook(ebook);
+                    books.add(ebook);
                 }
                 if (arr[9].equals("PRINTEDBOOK")) {
                     Book printeBook = new PrintedBook(arr[1], arr[3], Integer.parseInt(arr[5]), Integer.parseInt(arr[7]));
-                    library.addBook(printeBook);
+                    books.add(printeBook);
 
                 }
             }
