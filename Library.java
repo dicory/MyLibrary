@@ -49,12 +49,9 @@ public class Library {
         } throw new BookNotFoundException("No Book in Library " + nameBook);
     }
 
-    static void delete(){
-        books.clear();
-    }
+
     void addBook(Book book) {
         readFile();
-
         books.add(book);
     }
     static void readFile() {
@@ -80,6 +77,15 @@ public class Library {
             System.out.println(ex.getMessage());
         }
 
+    }
+
+    static void recordFile(){
+        try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt", false)){
+            //нужно реализовать запись
+            writer.write(String.valueOf(books.get(1).getTitle()));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }

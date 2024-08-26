@@ -22,11 +22,12 @@ public class Main {
 
 
         ReaderBook player = new ReaderBook("Igor", "18", new ArrayList<Book>());
-        Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
-        System.out.println(theLordOfTheRings.getAvailable());
+        //Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
+        //System.out.println(theLordOfTheRings.getAvailable());
 
         Library.readFile();
         Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
+        Library.recordFile();
     }
 
 
