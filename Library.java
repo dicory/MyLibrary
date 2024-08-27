@@ -54,6 +54,8 @@ public class Library {
         readFile();
         books.add(book);
     }
+
+    //метод 1: хотел при удалении и добавлении книги, брать информацию из файла и записывать в лист. Потом после добавления, обновлять список в файле
     static void readFile() {
         books.clear();
         try (BufferedReader br = new BufferedReader(new FileReader
@@ -78,7 +80,31 @@ public class Library {
         }
 
     }
+    //метод 2 (как хочу сделать): Не буду по 10 раз перезаписывать файл. Буду проверять в файле, дописывать если нет нужной книги и удалять книгу при необходимости. Всё это нужно скоректировать в методах
 
+    static void readFileTwo(String nameBook) {
+        try (BufferedReader br = new BufferedReader(new FileReader
+                ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
+        {
+            String s;
+            while ((s=br.readLine())!=null){
+                String[] arr = s.split("\"");
+                if (arr[1].equals(nameBook)){
+                    System.out.println("Эта книга уже имеется в библиотеке");
+                    return;
+                }
+            }
+        try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",true))
+            {
+                writer.write("test");
+            } catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+    }
+    //это я пока пробую как лучше записывать данные
     static void recordFile(){
         try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt", false)){
             //нужно реализовать запись

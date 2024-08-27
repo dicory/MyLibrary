@@ -25,9 +25,11 @@ public class Main {
         //Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
         //System.out.println(theLordOfTheRings.getAvailable());
 
-        Library.readFile();
-        Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
-        Library.recordFile();
+        //Library.readFile();
+        //Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
+        //Library.recordFile();
+
+        Library.readFileTwo("Романтика летнего вечера1");
     }
 
 
