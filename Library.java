@@ -82,14 +82,14 @@ public class Library {
     }
     //метод 2 (как хочу сделать): Не буду по 10 раз перезаписывать файл. Буду проверять в файле, дописывать если нет нужной книги и удалять книгу при необходимости. Всё это нужно скоректировать в методах
 
-    static void readFileTwo(String nameBook) {
+    static void readFileTwo(String nameBook, TypeBook typeBook) {
         try (BufferedReader br = new BufferedReader(new FileReader
                 ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
         {
             String s;
             while ((s=br.readLine())!=null){
                 String[] arr = s.split("\"");
-                if (arr[1].equals(nameBook)){
+                if (arr[1].equals(nameBook) && arr[9].equals(String.valueOf(typeBook))){
                     System.out.println("Эта книга уже имеется в библиотеке");
                     return;
                 }

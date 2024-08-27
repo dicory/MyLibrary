@@ -29,7 +29,10 @@ public class Main {
         //Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
         //Library.recordFile();
 
-        Library.readFileTwo("Романтика летнего вечера1");
+        Library.readFileTwo("Романтика летнего вечера1", TypeBook.EBOOK);
+
+        String te = String.valueOf(TypeBook.EBOOK);
+        System.out.println(te == "EBOOK");
     }
 
 
