@@ -51,35 +51,10 @@ public class Library {
 
 
     void addBook(Book book) {
-        readFile();
-        books.add(book);
+        //readFileTwo(book.getTitle(),TypeBook.EBOOK);
+        //books.add(book);
     }
 
-    //метод 1: хотел при удалении и добавлении книги, брать информацию из файла и записывать в лист. Потом после добавления, обновлять список в файле
-    static void readFile() {
-        books.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader
-                ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
-        {
-            String s;
-            while ((s=br.readLine())!=null){
-                String[] arr = s.split("\"");//Поправить сплит
-                if (arr[9].equals("EBOOK")) {
-                    Book ebook = new Ebook(arr[1], arr[3], Integer.parseInt(arr[5]), Double.parseDouble(arr[7]));
-                    books.add(ebook);
-                }
-                if (arr[9].equals("PRINTEDBOOK")) {
-                    Book printeBook = new PrintedBook(arr[1], arr[3], Integer.parseInt(arr[5]), Integer.parseInt(arr[7]));
-                    books.add(printeBook);
-
-                }
-            }
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-    }
     //метод 2 (как хочу сделать): Не буду по 10 раз перезаписывать файл. Буду проверять в файле, дописывать если нет нужной книги и удалять книгу при необходимости. Всё это нужно скоректировать в методах
 
     static void readFileTwo(String nameBook, TypeBook typeBook) {
@@ -94,9 +69,10 @@ public class Library {
                     return;
                 }
             }
+            Book printedBookBook = new PrintedBook("2The Lord of the Rings", "J.R.R. Tolkien", 1, 1200);
         try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",true))
             {
-                writer.write("test");
+                writer.write("\n\"" + printedBookBook.getTitle() + "\" \"" + printedBookBook.getAuthor() + "\" \"" + printedBookBook.getIsbn() + "\" \"" + printedBookBook.getAvailable() + "\" \"" + printedBookBook.getType() + "\"\n");
             } catch (IOException ex){
             System.out.println(ex.getMessage());
         }
