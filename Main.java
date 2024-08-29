@@ -11,10 +11,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedIOException, FileNotFoundException {
         //Book ebook = new Ebook("The Lord of the Rings", "J.R.R. Tolkien", 1, 1.2);
         Book printeBook = new PrintedBook("3112The Lord of the Rings", "J.R.R. Tolkien", 1, 1200);
-        Library library = new Library();
 
+        Library.addBook("3112The Lord of the Rings", "J.R.R. Tolkien", 1, 1200);
         //library.addBook(ebook);
-        library.addBook(printeBook);
+        //library.addBook(printeBook);
 
         //library.findBookByTitle("The Lord of the Rings");
         //System.out.println(Library.getBooks());
@@ -29,7 +29,7 @@ public class Main {
         //Library.getBooks().forEach(book -> System.out.println(book.getTitle()));
         //Library.recordFile();
 
-        Library.readFileTwo("1Романтика летнего вечера", TypeBook.PRINTEDBOOK);
+        //Library.readFileTwo("1Романтика летнего вечера", TypeBook.PRINTEDBOOK);
 
 
     }

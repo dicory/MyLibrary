@@ -20,6 +20,8 @@ public class Library {
         return books;
     }
 
+
+
     boolean removeBook(Book book) {
         return books.remove(book);
     }
@@ -50,9 +52,15 @@ public class Library {
     }
 
 
-    void addBook(Book book) {
-        //readFileTwo(book.getTitle(),TypeBook.EBOOK);
-        //books.add(book);
+    public static void addBook(String name, String author, int id, double fileSize) {
+        Book ebook = new Ebook(name, author, id, fileSize);
+        books.add(ebook);
+    }
+
+    public static void addBook(String name, String author, int id, int numberOfPages) {
+        Book printeBook = new PrintedBook(name, author, id, numberOfPages);
+        books.add(printeBook);
+
     }
 
     //метод 2 (как хочу сделать): Не буду по 10 раз перезаписывать файл. Буду проверять в файле, дописывать если нет нужной книги и удалять книгу при необходимости. Всё это нужно скоректировать в методах
