@@ -22,9 +22,7 @@ public class Library {
 
 
 
-    boolean removeBook(Book book) {
-        return books.remove(book);
-    }
+
 
     List<Book> findBookByTitle(String title) {
         ArrayList<Book> list = new ArrayList<>();
@@ -53,49 +51,69 @@ public class Library {
 
 
     public static void addBook(String name, String author, int id, double fileSize) {
-        Book ebook = new Ebook(name, author, id, fileSize);
-        books.add(ebook);
+        readFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
+        reсordFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
     }
-
     public static void addBook(String name, String author, int id, int numberOfPages) {
-        Book printeBook = new PrintedBook(name, author, id, numberOfPages);
-        books.add(printeBook);
+        readFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
+        reсordFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
+    }
+
+   void removeBook(String name, TypeBook type) {
+        //readFile(name, type);
+        //return books.remove(book);
 
     }
 
-    //метод 2 (как хочу сделать): Не буду по 10 раз перезаписывать файл. Буду проверять в файле, дописывать если нет нужной книги и удалять книгу при необходимости. Всё это нужно скоректировать в методах
+    static  void  readFile(String name, TypeBook type) {
+        List<String> priceBook = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt"))) {
 
-    static void readFileTwo(String nameBook, TypeBook typeBook) {
+            String s;
+
+            while ((s = br.readLine()) != null) {
+                String[] arr = s.split("\"");
+                System.out.println(arr[1]);
+                if (!arr[1].equals(name) && arr[9].equals(String.valueOf(type))) {
+                    priceBook.add(s);
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        priceBook.forEach(System.out::println);
+    }
+
+
+
+    static void readFile(String name, String author, String id, String bookSize, String Type) {
         try (BufferedReader br = new BufferedReader(new FileReader
                 ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
         {
             String s;
-            while ((s=br.readLine())!=null){
+            while ((s = br.readLine())!=null){
                 String[] arr = s.split("\"");
-                if (arr[1].equals(nameBook) && arr[9].equals(String.valueOf(typeBook))){
+                System.out.println(arr[1]);
+                if (arr[1].equals(name) && arr[9].equals(Type)){
                     System.out.println("Эта книга уже имеется в библиотеке");
                     return;
                 }
             }
-            Book printedBookBook = new PrintedBook("2The Lord of the Rings", "J.R.R. Tolkien", 1, 1200);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
+    static void reсordFile(String name, String author, String id, String bookSize, String Type) {
         try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",true))
-            {
-                writer.write("\n\"" + printedBookBook.getTitle() + "\" \"" + printedBookBook.getAuthor() + "\" \"" + printedBookBook.getIsbn() + "\" \"" + printedBookBook.getAvailable() + "\" \"" + printedBookBook.getType() + "\"\n");
-            } catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
-        } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-    }
-    //это я пока пробую как лучше записывать данные
-    static void recordFile(){
-        try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt", false)){
-            //нужно реализовать запись
-            writer.write(String.valueOf(books.get(1).getTitle()));
-        } catch (IOException ex) {
+        {
+            writer.write("\n\"" + name + "\" \"" + author + "\" \"" + id + "\" \"" + bookSize + "\" \"" + Type + "\"");
+        } catch (IOException ex){
             System.out.println(ex.getMessage());
         }
     }
+
 
 }
