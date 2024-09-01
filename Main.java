@@ -22,6 +22,9 @@ public class Main {
 
 
         //ReaderBook player = new ReaderBook("Igor", "18", new ArrayList<Book>());
+       // Library.registerReader(player);
+
+        Library.unregisterReader("Igor");
         //Book theLordOfTheRings = library.borrowBook("The Lord of the Rings", TypeBook.EBOOK);
         //System.out.println(theLordOfTheRings.getAvailable());
 

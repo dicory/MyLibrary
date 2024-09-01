@@ -6,7 +6,6 @@ import Books.TypeBook;
 import java.io.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,18 +21,43 @@ public class Library {
 
 
 
-
-
     List<Book> findBookByTitle(String title) {
         ArrayList<Book> list = new ArrayList<>();
         books.stream().filter(book -> book.getTitle().equals(title)).forEach(list::add);
         return list;
     }
-    void registerReader(ReaderBook reader) {
+
+
+    static void registerReader(ReaderBook reader) {
+        try (FileWriter writer = new FileWriter("readersFile.txt",true)){
+            writer.write("\"" + reader.getName() + "\" \"" + reader.getReaderId() + "\" \"" + reader.getBorrowedBooks() + "\"\n");
+        } catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
         readers.add(reader);
     }
-    void unregisterReader(ReaderBook reader) {
-        readers.remove(reader);
+    static void unregisterReader(String reader) {
+        List<String> listReader = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("readersFile.txt"))){
+            String s;
+            while ((s = br.readLine()) != null){
+                String[] arr = s.split("\"");
+                if (!arr[1].equals(reader))
+                {
+                    listReader.add(s);
+                }
+                System.out.println(arr[1]);
+            }
+        } catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        try (FileWriter writer = new FileWriter("readersFile.txt",false)){
+            for (String readerPlayer:listReader) {
+                writer.write(readerPlayer + "\n");
+            }
+        } catch (IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
     List<ReaderBook> findReaderById(String readerId) {
         ArrayList<ReaderBook> list = new ArrayList<>();
