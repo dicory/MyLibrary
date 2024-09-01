@@ -51,43 +51,38 @@ public class Library {
 
 
     public static void addBook(String name, String author, int id, double fileSize) {
-        readFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
-        reсordFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
+        readRecordFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
     }
     public static void addBook(String name, String author, int id, int numberOfPages) {
-        readFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
-        reсordFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
+        readRecordFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
     }
 
-   void removeBook(String name, TypeBook type) {
-        //readFile(name, type);
-        //return books.remove(book);
+   static void removeBook(String name, TypeBook type) {
+       List<String> priceBook = new ArrayList<>();
+       try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt"))) {
+           String s;
+           while ((s = br.readLine()) != null) {
+               String[] arr = s.split("\"");
+               System.out.println(arr[1]);
+               if (!(arr[1].equals(name) && arr[9].equals(String.valueOf(type)))) {
+                   priceBook.add(s);
+               }
+           }
+       } catch (IOException ex) {
+           System.out.println(ex.getMessage());
+       }
 
+       try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",false))
+       {
+           for (String book:priceBook) {
+               writer.write(book + "\n");
+           }
+       } catch (IOException ex){
+           System.out.println(ex.getMessage());
+       }
     }
 
-    static  void  readFile(String name, TypeBook type) {
-        List<String> priceBook = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt"))) {
-
-            String s;
-
-            while ((s = br.readLine()) != null) {
-                String[] arr = s.split("\"");
-                System.out.println(arr[1]);
-                if (!arr[1].equals(name) && arr[9].equals(String.valueOf(type))) {
-                    priceBook.add(s);
-                }
-            }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        priceBook.forEach(System.out::println);
-    }
-
-
-
-    static void readFile(String name, String author, String id, String bookSize, String Type) {
+    static void readRecordFile(String name, String author, String id, String bookSize, String Type) {
         try (BufferedReader br = new BufferedReader(new FileReader
                 ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
         {
@@ -103,10 +98,6 @@ public class Library {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-    }
-
-
-    static void reсordFile(String name, String author, String id, String bookSize, String Type) {
         try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",true))
         {
             writer.write("\n\"" + name + "\" \"" + author + "\" \"" + id + "\" \"" + bookSize + "\" \"" + Type + "\"");
@@ -114,6 +105,4 @@ public class Library {
             System.out.println(ex.getMessage());
         }
     }
-
-
 }
