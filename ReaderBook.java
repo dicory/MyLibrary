@@ -13,6 +13,13 @@ public class ReaderBook {
         this.borrowedBooks = borrowedBooks;
     }
 
+
+    public ReaderBook(String name, String readerId) {
+        this.name = name;
+        this.readerId = readerId;
+        this.borrowedBooks = borrowedBooks;
+    }
+
     public String getName() {
         return name;
     }

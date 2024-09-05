@@ -2,11 +2,13 @@ import Books.Book;
 import Books.Ebook;
 import Books.PrintedBook;
 import Books.TypeBook;
+import com.sun.jdi.Value;
 
 import java.io.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class Library {
@@ -65,14 +67,12 @@ public class Library {
         return list;
     }
 
-
     Book borrowBook(String nameBook, TypeBook typeBook) {
         Optional<Book> first = Library.getBooks().stream().filter(search -> search.getTitle().equals(nameBook) && search.getType() == typeBook).findFirst();
         if (first.isPresent()) {
             return first.get();
         } throw new BookNotFoundException("No Book in Library " + nameBook);
     }
-
 
     public static void addBook(String name, String author, int id, double fileSize) {
         readRecordFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
@@ -129,4 +129,65 @@ public class Library {
             System.out.println(ex.getMessage());
         }
     }
+
+
+    void uploadBooks(String path){
+        try (BufferedReader br = new BufferedReader(new FileReader
+                (path)))
+        {
+            String s;
+            while ((s = br.readLine())!=null){
+                String[] arr = s.split(";");
+                if (volidateParam(arr)){
+                    Book oneBook = new Ebook(arr[1],arr[2], Integer.parseInt(arr[3]),Double.parseDouble(arr[4]));
+                    books.add(oneBook);
+                }
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    void uploadReaders(String path){
+        try (BufferedReader br = new BufferedReader(new FileReader
+                (path)))
+        {
+            String s;
+            while ((s = br.readLine())!=null){
+                String[] arr = s.split(";");
+                if(volidateParam(arr)){
+                    ReaderBook readerPlayer = new ReaderBook(arr[0],arr[1]);
+                    readers.add(readerPlayer);
+                } else {
+                    throw new InvalidReaderException("Вычетанный пользователь невалиден");
+                }
+
+
+
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    boolean volidateParam(String[] arr){
+        for (String s:arr) {
+            if(s != null && !s.isBlank()){
+                continue;
+            } else {
+                throw new InvalidReaderException("Переданный массив невалиден");
+            }
+        }
+        return true;
+    }
+
+    Map<TypeBook, List<Book>> groupBooksByType(){
+
+    }
+
+    Map<String, List<Book>> groupBooksByName(){
+
+    }
 }
+
+
