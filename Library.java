@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Library {
 
@@ -30,36 +31,14 @@ public class Library {
     }
 
 
-    static void registerReader(ReaderBook reader) {
-        try (FileWriter writer = new FileWriter("readersFile.txt",true)){
-            writer.write("\"" + reader.getName() + "\" \"" + reader.getReaderId() + "\" \"" + reader.getBorrowedBooks() + "\"\n");
-        } catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
+    void registerReader(ReaderBook reader) {
         readers.add(reader);
     }
-    static void unregisterReader(String reader) {
-        List<String> listReader = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("readersFile.txt"))){
-            String s;
-            while ((s = br.readLine()) != null){
-                String[] arr = s.split("\"");
-                if (!arr[1].equals(reader))
-                {
-                    listReader.add(s);
-                }
-                System.out.println(arr[1]);
-            }
-        } catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
-        try (FileWriter writer = new FileWriter("readersFile.txt",false)){
-            for (String readerPlayer:listReader) {
-                writer.write(readerPlayer + "\n");
-            }
-        } catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
+
+
+
+    void unregisterReader(ReaderBook reader) {
+        readers.remove(reader);
     }
     List<ReaderBook> findReaderById(String readerId) {
         ArrayList<ReaderBook> list = new ArrayList<>();
@@ -74,38 +53,13 @@ public class Library {
         } throw new BookNotFoundException("No Book in Library " + nameBook);
     }
 
-    public static void addBook(String name, String author, int id, double fileSize) {
-        readRecordFile(name, author, String.valueOf(id), String.valueOf(fileSize), "EBOOK");
-    }
-    public static void addBook(String name, String author, int id, int numberOfPages) {
-        readRecordFile(name, author, String.valueOf(id), String.valueOf(numberOfPages), "PRINTEDBOOK");
+    void addBook(Book book) {
+        books.add(book);
     }
 
-   static void removeBook(String name, TypeBook type) {
-       List<String> priceBook = new ArrayList<>();
-       try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt"))) {
-           String s;
-           while ((s = br.readLine()) != null) {
-               String[] arr = s.split("\"");
-               System.out.println(arr[1]);
-               if (!(arr[1].equals(name) && arr[9].equals(String.valueOf(type)))) {
-                   priceBook.add(s);
-               }
-           }
-       } catch (IOException ex) {
-           System.out.println(ex.getMessage());
-       }
-
-       try(FileWriter writer = new FileWriter("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt",false))
-       {
-           for (String book:priceBook) {
-               writer.write(book + "\n");
-           }
-       } catch (IOException ex){
-           System.out.println(ex.getMessage());
-       }
+    boolean removeBook(Book book) {
+        return books.remove(book);
     }
-
     static void readRecordFile(String name, String author, String id, String bookSize, String Type) {
         try (BufferedReader br = new BufferedReader(new FileReader
                 ("C:\\Users\\igor\\Desktop\\MyLibrary\\MyLibrary\\booksFile.txt")))
@@ -181,13 +135,21 @@ public class Library {
         return true;
     }
 
+
+    //Групированный список моих кних по их типу
+
+    //Cписок книг используя стримы или foreach
     Map<TypeBook, List<Book>> groupBooksByType(){
-
+        uploadBooks("booksFile");
+        return books.stream().collect(Collectors.groupingBy(Book::getType));
     }
-
+    //Групировать книги по названиям
     Map<String, List<Book>> groupBooksByName(){
-
+        return books.stream().collect(Collectors.groupingBy(Book::getTitle));
     }
+
+
+
 }
 
 
