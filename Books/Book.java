@@ -16,7 +16,7 @@ public abstract class Book {
         this.type = type;
     }
 
-    public Enum<TypeBook> getType() {
+    public TypeBook getType() {
         return type;
     }
 
